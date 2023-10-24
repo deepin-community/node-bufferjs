@@ -1,0 +1,22 @@
+From: =?utf-8?q?Bastien_Roucari=C3=A8s?= <rouca@debian.org>
+Date: Wed, 6 Oct 2021 18:48:47 +0000
+Subject: Fix Buffer warning
+
+Forwarded: not-needed
+---
+ bufferjs/indexOf.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bufferjs/indexOf.js b/bufferjs/indexOf.js
+index 26abcad..79261bf 100644
+--- a/bufferjs/indexOf.js
++++ b/bufferjs/indexOf.js
+@@ -7,7 +7,7 @@
+    * needle and haystack to be Buffer instances.
+    */
+   function indexOf(haystack, needle, i) {
+-    if (!Buffer.isBuffer(needle)) needle = new Buffer(needle);
++    if (!Buffer.isBuffer(needle)) needle = Buffer.from(needle);
+     if (typeof i === 'undefined') i = 0;
+     var l = haystack.length - needle.length + 1;
+     while (i<l) {

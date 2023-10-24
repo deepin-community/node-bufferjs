@@ -1,5 +1,58 @@
-template-repository (1.0-1) unstable; urgency=medium
+node-bufferjs (3.1.0+git20160608.605b357+~cs0.6.2-2) unstable; urgency=medium
+
+  * Team upload
+  * Fix autopkgtest and reenable test (missing debian/nodejs/pkg-js/files)
+
+ -- Yadd <yadd@debian.org>  Sun, 10 Oct 2021 12:19:53 +0200
+
+node-bufferjs (3.1.0+git20160608.605b357+~cs0.6.2-1) unstable; urgency=medium
+
+  * Team upload
+  * Drop nodejs depends
+  * New upstream version
+  * MA: foreign
+  * Bundle bufferstream
+
+ -- Bastien Roucariès <rouca@debian.org>  Wed, 06 Oct 2021 09:30:24 +0000
+
+node-bufferjs (3.0.1-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Trim trailing whitespace.
+  * Use secure copyright file specification URI.
+  * Use secure URI in debian/watch.
+  * Bump debhelper from deprecated 9 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Change priority extra to priority optional.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Update Vcs-* headers from URL redirect.
+  * Use canonical URL in Vcs-Git.
+
+  [ Xavier Guimard ]
+  * Declare compliance with policy 4.5.0
+  * Add "Rules-Requires-Root: no"
+  * Change section to javascript
+  * Add debian/gbp.conf
+  * Update debian/watch to use npm registry
+  * New upstream version 3.0.1
+  * Update copyright
+  * Use pkg-js-tools auto install
+
+ -- Xavier Guimard <yadd@debian.org>  Sat, 23 May 2020 22:14:43 +0200
+
+node-bufferjs (2.0.0-2) unstable; urgency=medium
+
+  * debian/control: use secure VCS-URLs
+  * run node-autopkgtest.sh
+  * add all files to package
+
+ -- Thorsten Alteholz <debian@alteholz.de>  Fri, 19 Feb 2016 17:56:04 +0100
+
+node-bufferjs (2.0.0-1) unstable; urgency=low
 
   * Initial release
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Thorsten Alteholz <debian@alteholz.de>  Wed, 09 Sep 2015 01:56:04 +0200

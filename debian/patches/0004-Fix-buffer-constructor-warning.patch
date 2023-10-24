@@ -1,0 +1,61 @@
+From: =?utf-8?q?Bastien_Roucari=C3=A8s?= <rouca@debian.org>
+Date: Wed, 6 Oct 2021 18:43:39 +0000
+Subject: Fix buffer constructor warning
+
+Fix deprecation warnings
+
+Forwarded: not-needed
+---
+ bufferstream/src/buffer-stream.coffee | 6 +++---
+ bufferstream/src/fn.coffee            | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/bufferstream/src/buffer-stream.coffee b/bufferstream/src/buffer-stream.coffee
+index b65a2d0..923f50e 100644
+--- a/bufferstream/src/buffer-stream.coffee
++++ b/bufferstream/src/buffer-stream.coffee
+@@ -95,7 +95,7 @@ class BufferStream extends Stream
+         if isBuffer(buffer)
+             # no action required
+         else if typeof buffer is 'string'
+-            buffer = new Buffer(buffer, encoding ? @encoding)
++            buffer = Buffer.from(buffer, encoding ? @encoding)
+         else @emit('error',
+             new Error("Argument should be either a buffer or a string."))
+ 
+@@ -138,9 +138,9 @@ class BufferStream extends Stream
+ 
+     reset: () =>
+         if typeof @size is 'number'
+-            @buffer = new Buffer(@size)
++            @buffer = Buffer.alloc(@size)
+         else
+-            @buffer = new Buffer(0)
++            @buffer = Buffer.alloc(0)
+ 
+     pause: () ->
+         return if @paused
+diff --git a/bufferstream/src/fn.coffee b/bufferstream/src/fn.coffee
+index 7f93301..c66c839 100644
+--- a/bufferstream/src/fn.coffee
++++ b/bufferstream/src/fn.coffee
+@@ -22,7 +22,7 @@ exports.concat ?= (args...) ->
+             buffers.push(input)
+     return args[idx] if idx isnt -1 and length is args[idx].length
+     pos = 0
+-    result = new Buffer(length)
++    result = Buffer.alloc(length)
+     for buffer in buffers
+         continue unless buffer.length
+         buffer.copy(result, pos)
+@@ -31,8 +31,8 @@ exports.concat ?= (args...) ->
+ 
+ exports.split = (buffer, pos, offset = 0) ->
+         buflen = buffer.length
+-        found = new Buffer(min(buflen, pos))
+-        rest = new Buffer(max(0, buflen - pos - offset))
++        found = Buffer.alloc(min(buflen, pos))
++        rest = Buffer.alloc(max(0, buflen - pos - offset))
+         buffer.copy(found, 0, 0, min(buflen, pos))
+         buffer.copy(rest, 0, min(buflen, pos + offset))
+         return [found, rest]

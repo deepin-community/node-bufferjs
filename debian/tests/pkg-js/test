@@ -1,0 +1,4 @@
+if test "$AUTOPKGTEST_TMP" != ""; then
+	ln -s . bufferjs
+fi
+nodejs examples/*.js

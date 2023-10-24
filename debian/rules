@@ -1,4 +1,23 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
 
 %:
 	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure --buildsystem=nodejs
+	mkdir -p node_modules
+	set -e ;if ! test -e node_modules/bufferjs; then ln -s ../bufferjs node_modules/bufferjs; fi
+
+override_dh_installexamples:
+	dh_installexamples
+	find debian/node-bufferjs/usr/share/doc/node-bufferjs/examples -name '*.js' -exec sed -i "s,require[(]'\.\./bufferjs,require('bufferjs,g" {} \;
+
+override_dh_auto_clean:
+	rm -rf node_modules
+	rm -rf bufferstream/lib
+	rm -rf bufferstream/test
+	dh_auto_clean
