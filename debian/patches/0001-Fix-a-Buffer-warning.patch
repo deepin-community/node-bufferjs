@@ -1,0 +1,68 @@
+From: =?utf-8?q?Bastien_Roucari=C3=A8s?= <rouca@debian.org>
+Date: Wed, 6 Oct 2021 09:58:19 +0000
+Subject: Fix a Buffer warning
+
+Port tests to new buffer API
+
+Forwarded: https://github.com/coolaj86/node-bufferjs/issues/17
+bug: https://github.com/coolaj86/node-bufferjs/issues/17
+---
+ examples/add-chunk-test.js | 14 +++++++-------
+ examples/require-test.js   |  2 +-
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/examples/add-chunk-test.js b/examples/add-chunk-test.js
+index 409a20c..bdbd97f 100755
+--- a/examples/add-chunk-test.js
++++ b/examples/add-chunk-test.js
+@@ -7,16 +7,16 @@
+   var buffer, remnant, result;
+ 
+   function initBuffer() {
+-    buffer = new Buffer(16);
++    buffer = Buffer.alloc(16);
+ 
+-    buffer.addChunk(new Buffer("abcde"));
+-    buffer.addChunk(new Buffer("fghij"));
++    buffer.addChunk(Buffer.from("abcde"));
++    buffer.addChunk(Buffer.from("fghij"));
+   }
+ 
+   function testExactSize() {
+     initBuffer();
+ 
+-    remnant = buffer.addChunk(new Buffer("klmnop"));
++    remnant = buffer.addChunk(Buffer.from("klmnop"));
+ 
+     if ("abcdefghijklmnop" !== buffer.toString()) {
+       console.log("FAIL: expected the letters a-p, but saw: ", buffer.toString());
+@@ -39,7 +39,7 @@
+     }
+     */
+ 
+-    result = buffer.addChunk(new Buffer("uvwxyz"));
++    result = buffer.addChunk(Buffer.from("uvwxyz"));
+     if (false !== result) {
+       console.log("FAIL: expected 'false', but saw: ", result);
+     } else {
+@@ -50,8 +50,8 @@
+   function testTooBig() {
+     initBuffer();
+ 
+-    remnant = buffer.addChunk(new Buffer("klmno"));
+-    remnant = buffer.addChunk(new Buffer("pqrst"));
++    remnant = buffer.addChunk(Buffer.from("klmno"));
++    remnant = buffer.addChunk(Buffer.from("pqrst"));
+ 
+     if ("qrst" !== remnant.toString()) {
+       console.log("FAIL: expected the letters 'qrst', but saw:", remnant.toString());
+diff --git a/examples/require-test.js b/examples/require-test.js
+index 819feee..a420955 100644
+--- a/examples/require-test.js
++++ b/examples/require-test.js
+@@ -7,4 +7,4 @@ console.log('Buffer.concat:');
+ console.log(Buffer.concat);
+ 
+ console.log('buffer.addChunk:');
+-console.log((new Buffer(1).addChunk));
++console.log(Buffer.alloc(1).addChunk);

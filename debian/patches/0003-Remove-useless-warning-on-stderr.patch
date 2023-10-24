@@ -1,0 +1,42 @@
+From: =?utf-8?q?Bastien_Roucari=C3=A8s?= <rouca@debian.org>
+Date: Wed, 6 Oct 2021 18:34:32 +0000
+Subject: Remove useless warning on stderr
+
+This modules recommend an obsolete module. Do not warn
+
+Forwarded: not-needed
+---
+ bufferstream/package.json  | 2 --
+ bufferstream/src/fn.coffee | 6 +-----
+ 2 files changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/bufferstream/package.json b/bufferstream/package.json
+index 90f50d6..5d9b60a 100644
+--- a/bufferstream/package.json
++++ b/bufferstream/package.json
+@@ -12,8 +12,6 @@
+     "prepublish": "cake build"}
+ , "dependencies": {
+     "bufferjs": ">= 2.0.0"}
+-, "optionalDependencies": {
+-    "buffertools": ">= 1.0.3"}
+ , "devDependencies": {
+     "nodeunit": ">= 0.5.4",
+     "muffin": ">= 0.2.6",
+diff --git a/bufferstream/src/fn.coffee b/bufferstream/src/fn.coffee
+index ca5a848..7f93301 100644
+--- a/bufferstream/src/fn.coffee
++++ b/bufferstream/src/fn.coffee
+@@ -7,11 +7,7 @@ catch e
+     require 'bufferjs/indexOf'
+     { indexOf } = Buffer
+     exports.indexOf = (needle) -> indexOf(this, needle)
+-    exports.warn = "Warning: using slow naiv Buffer.indexOf function!\n" +
+-                   "`npm install buffertools` to speed things up."
+-    # allow to disable warnings by setting .warn to a falsy value
+-    process.nextTick ->
+-        console.warn exports.warn if exports.warn
++
+ 
+ exports.concat = ((args...) -> Buffer.concat(args)) if Buffer.concat?
+ exports.concat ?= (args...) ->

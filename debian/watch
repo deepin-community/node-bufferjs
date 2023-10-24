@@ -1,0 +1,18 @@
+version=4
+# It is not recommended use npmregistry. Please investigate more.
+# Take a look at https://wiki.debian.org/debian/watch/
+opts=mode=git,\
+ pgpmode=none,\
+ pretty=3.1.0+git%cd.%h \
+ https://github.com/coolaj86/node-bufferjs HEAD group
+
+#opts="filenamemangle=s%(?:.*?)?v?(@ANY_VERSION@@ARCHIVE_EXT@)%@PACKAGE@-$1%" \
+# https://github.com/coolaj86/node-bufferjs/tags \
+#    (?:.*?/)?v?@ANY_VERSION@@ARCHIVE_EXT@
+
+opts=\
+component=bufferstream,\
+ctype=nodejs,\
+dversionmangle=auto,\
+filenamemangle=s%(?:.*?/)?v?(@ANY_VERSION@@ARCHIVE_EXT@)%node-bufferstream-$1% \
+ https://github.com/dodo/node-bufferstream/tags (?:.*?/)?v?@ANY_VERSION@@ARCHIVE_EXT@ checksum

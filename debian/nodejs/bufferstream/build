@@ -1,0 +1,7 @@
+find src -name '*.coffee' -exec coffee -c {} \;
+mkdir -p lib
+cp -f src/*.js lib
+rm -f src/*.js
+mkdir -p test
+cp -f src/test/*.js test
+rm -f src/test/*.js
